@@ -60,14 +60,11 @@ export const fetchTweets = () => async dispatch => {
   
   export const composeTweet = data => async dispatch => {
     try {
-      debugger;
       const res = await jwtFetch('/api/tweets/', {
         method: 'POST',
         body: JSON.stringify(data)
       });
-      
       const tweet = await res.json();
-      
       dispatch(receiveNewTweet(tweet));
     } catch(err) {
       const resBody = await err.json();
@@ -98,7 +95,6 @@ const tweetsReducer = (state = { all: {}, user: {}, new: undefined }, action) =>
       case RECEIVE_USER_TWEETS:
         return { ...state, user: action.tweets, new: undefined};
       case RECEIVE_NEW_TWEET:
-        debugger;
         return { ...state, new: action.tweet};
       case RECEIVE_USER_LOGOUT:
         return { ...state, user: {}, new: undefined }
